@@ -19,10 +19,17 @@ Consuming sites fetch these files at a **pinned tag**, the same way other Cadast
 | `overrides/partials/copyright.html` | Docs-page footer with the Cadasto mark |
 | `assets/cadasto-mark.png` | Shared mark; consumer copies it to their `docs_dir/assets/` |
 | `files.json` | The fetch list |
+| `tools/contrast.py` | WCAG check over `tokens.css`; not fetched by consumers |
 
 ## Commands
 
 There is no build. Edit the CSS or overrides and tag a release when a consumer should pick it up.
+
+One check. No dependencies, and it needs no MkDocs site — run it before tagging:
+
+```bash
+python3 tools/contrast.py   # every token pair in tokens.css against WCAG AA
+```
 
 ## How a site consumes this
 
@@ -39,10 +46,11 @@ Pin a `vX.Y.Z` tag. Fetch every path in `files.json` (raw GitHub is enough). Wir
   `pymdownx.emoji` emits. Without them a landing page renders unstyled.
 - the mark at `<docs_dir>/assets/cadasto-mark.png`
 
-Font URL (Fira Sans 500/700, Roboto, Roboto Mono, `display=swap`):
+Font URL (Fira Sans 500/700, Roboto 400/500/600/700 + italic, Roboto Mono,
+`display=swap`). The weight list is not decorative — see the gotcha below:
 
 ```
-https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500;700&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap
+https://fonts.googleapis.com/css2?family=Fira+Sans:wght@500;700&family=Roboto:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Roboto+Mono:ital,wght@0,400;0,700;1,400&display=swap
 ```
 
 Product logo, nav, pages, and any extra CSS stay in the consuming repo.
@@ -72,6 +80,26 @@ keeps Material's default styling.
 ## Gotchas
 
 - **`--md-text-font-family` and the scheme colour tokens must be set on `body`**, not only `:root`. Material declares them on `<body>`; a `:root` value is inherited and then overwritten. The page keeps `-apple-system` or the default Material colours if this is "fixed".
+- **Light mode uses `--cadasto-ink-blue` / `--cadasto-ink-green`, never the raw
+  brand blue and green.** Those two are tuned for the navy surface; on white
+  they measure 2.27:1 and 1.72:1 against a WCAG AA floor of 4.5:1. The ink
+  tokens mix each toward the navy to clear AA while keeping the hue, and
+  `--cadasto-on-ink` is the only label colour the fills can carry. Reaching
+  for `var(--cadasto-blue)` in a rule that paints text or a fill on the *page*
+  surface silently reintroduces the failure — it looks right in dark mode,
+  which is the default. The unmixed hues are still correct on navy, which is
+  why both footers keep them. `tools/contrast.py` fails if any pair regresses.
+- **`overrides/home.html` replaces `header`, so it has to re-include
+  `partials/palette.html` and `partials/javascripts/palette.html`.** Material
+  keeps the radio inputs *and* the localStorage restore inside its own header,
+  not in the bundle. Drop either include and the landing page renders the
+  first-listed scheme with no toggle, ignoring what the visitor chose on every
+  other page — a mismatch that is invisible while the site ships one scheme.
+- **The font URL's weight list is coupled to these stylesheets.** Fira Sans is
+  used at 500 and 700, Roboto at 400/500/600/700 and italic 400. A weight the
+  CSS uses but the URL omits gets a synthesised face, which no build step
+  reports. Roboto 300 is deliberately absent: the only rule that wanted it was
+  Material's `h1`/`h2`, which `material.css` overrides to Fira Sans.
 - **Fonts are requested from the consuming `mkdocs.yml`**, not from these CSS files. An `@import` here starts the font request after this file parses and the swap lands late.
 - **`display=swap`**, not `optional`. `optional` keeps Helvetica or the system UI for the whole visit when the webfont misses first paint. cadasto.com uses swap.
 - **Do not put product copy, a product logo, or JSON-LD in this repo.** Those belong in the consuming site.
