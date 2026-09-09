@@ -1,10 +1,20 @@
 /* Material docs chrome. Load after tokens.css. */
 
-/* Content links carry the brand light blue. On the dark scheme that is high
-   contrast; on white it is not, so light mode underlines them to keep them
-   unmistakable. Buttons opt out — they are not underlined links. */
+/* Links carry `--cadasto-ink-blue`, which clears WCAG AA on either surface
+   (see tokens.css). Light mode still underlines them: contrast satisfies
+   1.4.3, and the underline is what satisfies 1.4.1 — not signalling a link by
+   colour alone — which no contrast ratio can do on its own. Buttons opt out:
+   they are not underlined links. */
 [data-md-color-scheme="default"] .md-typeset a:not(.md-button) {
   text-decoration: underline;
+}
+
+/* Material paints a primary button's label with `--md-primary-bg-color`, which
+   has to stay light because the header and tabs below are navy in both
+   schemes. On the button that lands white on the fill: 2.27:1 in dark mode.
+   `--cadasto-on-ink` is the label colour the fill can actually carry. */
+.md-typeset .md-button--primary {
+  color: var(--cadasto-on-ink);
 }
 
 .md-typeset h1,
@@ -64,7 +74,7 @@
 }
 
 .cadasto-by strong {
-  color: #fff;
+  color: var(--cadasto-white);
   font-weight: 600;
 }
 
