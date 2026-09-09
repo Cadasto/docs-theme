@@ -1,0 +1,26 @@
+{#-
+  Documentation-page footer. Based on Material's `copyright.html`, with a
+  Cadasto attribution ahead of the copyright line.
+
+  The mark must live at `assets/cadasto-mark.png` under the consuming site's
+  `docs_dir`. The `generator` branch is kept so flipping `extra.generator`
+  back on still works.
+-#}
+<div class="md-copyright">
+  {#- The mark is the link's only content, so its alt text is the link's
+      accessible name. Emptying it leaves an unlabelled link (WCAG 4.1.2). -#}
+  <a class="cadasto-by" href="https://www.cadasto.com" target="_blank" rel="noopener">
+    <img src="{{ 'assets/cadasto-mark.png' | url }}" alt="Cadasto" width="884" height="630">
+  </a>
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  {% endif %}
+</div>

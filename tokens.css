@@ -1,0 +1,89 @@
+/* Brand tokens. Neutrals are opacity tints of these hues, never new ones.
+   Light and dark are Material schemes; the consuming mkdocs.yml wires the
+   header toggle. Semantic tokens are redefined per scheme so later rules
+   keep the same names. */
+
+:root {
+  --cadasto-navy: #0a1a66;   /* dark blue */
+  --cadasto-green: #24e363;
+  --cadasto-blue: #5cb2ff;   /* light blue */
+  --cadasto-mint: #a8f5bf;
+  --cadasto-silver: #cfd6e5;
+  --cadasto-white: #ffffff;
+
+  /* Exact stacks from cadasto.com (Divi customizer: headings vs body). Lucida
+     is part of that fallback path; the theme's composed body stack would
+     otherwise fall through to -apple-system and read as a different face
+     whenever the webfont misses. */
+  --cadasto-display: "Fira Sans", Helvetica, Arial, Lucida, sans-serif;
+  --cadasto-text: "Roboto", Helvetica, Arial, Lucida, sans-serif;
+
+  /* `theme.font` is false, so the theme no longer sets these names. The
+     composed `--md-text-font-family` is overridden on `body` below. */
+  --md-text-font: "Roboto";
+  --md-code-font: "Roboto Mono";
+}
+
+/* The theme composes `--md-text-font-family` on `body`, not `:root`. A value
+   set only on `:root` is inherited and then overwritten, so the page would
+   keep `-apple-system` in the fallback path and miss Lucida. */
+body {
+  --md-text-font-family: var(--cadasto-text);
+}
+
+/* The theme declares its scheme variables on the element carrying
+   `data-md-color-scheme` — that is <body>, not <html>. A custom property set on
+   <body> beats one inherited from `:root`, so these overrides must use the same
+   selector or they are silently discarded. */
+
+/* --- dark (default) ------------------------------------------------------- */
+[data-md-color-scheme="slate"] {
+  --cadasto-fg: var(--cadasto-white);
+  --cadasto-fg-muted: rgba(255, 255, 255, 0.75);
+  --cadasto-heading: var(--cadasto-blue);
+  --cadasto-surface: rgba(255, 255, 255, 0.05);
+  --cadasto-surface-hover: rgba(255, 255, 255, 0.08);
+  --cadasto-raised: rgba(255, 255, 255, 0.06);
+  --cadasto-border: rgba(207, 214, 229, 0.22);
+  --cadasto-border-strong: rgba(207, 214, 229, 0.42);
+  --cadasto-nav-bg: rgba(10, 26, 102, 0.85);
+
+  --md-default-bg-color: var(--cadasto-navy);
+  --md-default-fg-color: var(--cadasto-fg);
+  --md-default-fg-color--light: var(--cadasto-fg-muted);
+  --md-default-fg-color--lighter: rgba(255, 255, 255, 0.45);
+  --md-primary-fg-color: var(--cadasto-blue);
+  --md-primary-fg-color--light: var(--cadasto-blue);
+  --md-primary-fg-color--dark: var(--cadasto-navy);
+  --md-accent-fg-color: var(--cadasto-green);
+  --md-typeset-color: var(--cadasto-fg);
+  --md-typeset-a-color: var(--cadasto-blue);
+  --md-code-bg-color: rgba(0, 0, 0, 0.25);
+  --md-footer-bg-color: var(--cadasto-navy);
+}
+
+/* --- light ---------------------------------------------------------------- */
+[data-md-color-scheme="default"] {
+  --cadasto-fg: var(--cadasto-navy);
+  --cadasto-fg-muted: rgba(10, 26, 102, 0.6);
+  --cadasto-heading: var(--cadasto-navy);
+  --cadasto-surface: rgba(10, 26, 102, 0.04);
+  --cadasto-surface-hover: rgba(10, 26, 102, 0.07);
+  --cadasto-raised: var(--cadasto-white);
+  --cadasto-border: var(--cadasto-silver);
+  --cadasto-border-strong: rgba(10, 26, 102, 0.26);
+  --cadasto-nav-bg: rgba(255, 255, 255, 0.85);
+
+  --md-default-bg-color: var(--cadasto-white);
+  --md-default-fg-color: var(--cadasto-fg);
+  --md-default-fg-color--light: var(--cadasto-fg-muted);
+  --md-default-fg-color--lighter: rgba(10, 26, 102, 0.38);
+  --md-primary-fg-color: var(--cadasto-blue);
+  --md-primary-fg-color--light: var(--cadasto-blue);
+  --md-primary-fg-color--dark: var(--cadasto-navy);
+  --md-accent-fg-color: var(--cadasto-green);
+  --md-typeset-color: var(--cadasto-fg);
+  --md-typeset-a-color: var(--cadasto-blue);
+  --md-code-bg-color: rgba(10, 26, 102, 0.05);
+  --md-footer-bg-color: var(--cadasto-navy);
+}

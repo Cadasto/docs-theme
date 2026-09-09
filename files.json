@@ -1,0 +1,11 @@
+{
+  "$comment": "Paths a consuming docs site should fetch at a pinned tag. CSS goes under the site's extra_css; overrides merge into custom_dir; the mark goes in docs_dir/assets/.",
+  "files": [
+    "tokens.css",
+    "material.css",
+    "landing.css",
+    "overrides/home.html",
+    "overrides/partials/copyright.html",
+    "assets/cadasto-mark.png"
+  ]
+}

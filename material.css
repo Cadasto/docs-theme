@@ -1,0 +1,83 @@
+/* Material docs chrome. Load after tokens.css. */
+
+/* Content links carry the brand light blue. On the dark scheme that is high
+   contrast; on white it is not, so light mode underlines them to keep them
+   unmistakable. Buttons opt out — they are not underlined links. */
+[data-md-color-scheme="default"] .md-typeset a:not(.md-button) {
+  text-decoration: underline;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+  font-family: var(--cadasto-display);
+  font-weight: 500;
+  color: var(--cadasto-heading);
+}
+
+/* cadasto.com sets body text a touch airier than Material's default and
+   antialiases both faces. */
+.md-typeset {
+  font-family: var(--cadasto-text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Documentation pages: brand the theme's header and tabs navy in both schemes,
+   so the chrome reads Cadasto whichever way the toggle is set. */
+.md-header {
+  background-color: var(--cadasto-navy);
+}
+
+.md-tabs {
+  background-color: var(--cadasto-navy);
+}
+
+/* The site name already sits in the header, next to the logo. On desktop the
+   left sidebar repeated it as the navigation's title; with `toc.integrate` that
+   column now carries the page's own contents. The label is still the drawer's
+   heading on small screens, so this is scoped to the desktop breakpoint. */
+@media screen and (min-width: 76.25em) {
+  .md-sidebar--primary .md-nav--primary > .md-nav__title {
+    display: none;
+  }
+}
+
+/* --- Cadasto attribution (both footers) ---------------------------------- */
+
+/* Both footers are navy in both schemes, so the attribution is always light. */
+.cadasto-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cadasto-by:hover {
+  color: var(--cadasto-green);
+}
+
+.cadasto-by strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Intrinsic size is 884x630; the width/height attributes are present so the
+   row does not reflow when the image lands. */
+.cadasto-by img {
+  width: 1.35rem;
+  height: auto;
+  flex: none;
+}
+
+/* Documentation-page footer: navy in both schemes, so the top divider
+   separates page and footer in dark mode, where both are navy. */
+.md-footer {
+  border-top: 1px solid var(--cadasto-border);
+}

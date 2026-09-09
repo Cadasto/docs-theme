@@ -1,0 +1,366 @@
+/* Landing page. Load after tokens.css and material.css. The home.html
+   template replaces the theme chrome, so these rules style that page only. */
+
+/* The template empties the content blocks, leaving <main> with nothing but a
+   script tag; without this it still contributes grid padding. */
+.md-container:has(> .home) .md-main {
+  display: none;
+}
+
+/* --- navigation ---------------------------------------------------------- */
+
+.home-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--cadasto-nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--cadasto-border);
+}
+
+.home-nav__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.home-nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--cadasto-text);
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--cadasto-fg);
+  text-decoration: none;
+}
+
+.home-nav__brand img {
+  width: 1.9rem;
+  height: 1.9rem;
+}
+
+.home-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 0.82rem;
+}
+
+.home-nav__links a {
+  color: var(--cadasto-fg-muted);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.home-nav__links a:hover {
+  color: var(--cadasto-blue);
+}
+
+.home-nav__repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--cadasto-border-strong);
+  border-radius: 2rem;
+  color: var(--cadasto-fg) !important;
+}
+
+.home-nav__repo:hover {
+  background: var(--cadasto-surface);
+  border-color: var(--cadasto-blue);
+}
+
+.home-nav__repo svg {
+  width: 1rem;
+  height: 1rem;
+  fill: currentcolor;
+}
+
+/* --- shared layout ------------------------------------------------------- */
+
+.home {
+  padding: 0 1.5rem 1rem;
+}
+
+.home > * {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.md-typeset .section-title {
+  font-family: var(--cadasto-display);
+  font-weight: 700;
+  text-align: center;
+  font-size: 1.9rem;
+  margin: 4.5rem 0 0.5rem;
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.home-hero {
+  text-align: center;
+  padding: 5rem 1rem 2rem;
+}
+
+.md-typeset .home-hero__mark {
+  width: 4.5rem;
+  height: 4.5rem;
+  margin: 0 auto 1.75rem;
+  display: block;
+}
+
+.md-typeset .home-hero h1 {
+  font-family: var(--cadasto-display);
+  font-weight: 700;
+  font-size: clamp(1.75rem, 5vw, 3rem);
+  line-height: 1.2;
+  margin: 0 0 1rem;
+  color: var(--cadasto-navy);
+}
+
+/* cadasto.com paints the hero title `#FFFFFF` on navy. Light mode cannot —
+   white on white — so it keeps the navy set above. */
+[data-md-color-scheme="slate"] .md-typeset .home-hero h1 {
+  color: var(--cadasto-white);
+}
+
+.md-typeset .home-tagline {
+  font-family: var(--cadasto-text);
+  color: var(--cadasto-fg-muted);
+  font-size: 1.25rem;
+  line-height: 1.8;
+  max-width: 40rem;
+  margin: 0 auto 2.25rem;
+}
+
+.home-cta {
+  display: flex;
+  gap: 0.9rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.md-typeset .home-reassure {
+  margin: 1.1rem auto 0;
+  max-width: 34rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--cadasto-fg-muted);
+}
+
+.md-typeset .home-cta .md-button {
+  font-family: var(--cadasto-text);
+  border-radius: 2rem;
+  padding: 0.6rem 1.6rem;
+  font-weight: 600;
+  border-width: 1px;
+}
+
+.md-typeset .home-cta .md-button--primary {
+  color: var(--cadasto-navy);
+  background: var(--cadasto-blue);
+  border-color: var(--cadasto-blue);
+}
+
+.md-typeset .home-cta .md-button--primary:hover {
+  background: var(--cadasto-green);
+  border-color: var(--cadasto-green);
+  color: var(--cadasto-navy);
+}
+
+/* --- feature cards ------------------------------------------------------- */
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  gap: 1.25rem;
+  margin: 2.5rem auto 1rem;
+}
+
+.feature-card {
+  background: var(--cadasto-surface);
+  border: 1px solid var(--cadasto-border);
+  border-radius: 0.9rem;
+  padding: 1.6rem 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+}
+
+.feature-card:hover {
+  border-color: var(--cadasto-border-strong);
+  background: var(--cadasto-surface-hover);
+  transform: translateY(-3px);
+}
+
+/* Icon chip — the icon itself is an inline SVG emitted by pymdownx.emoji. */
+.md-typeset .feature-card .twemoji,
+.md-typeset .product-card .twemoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  margin-bottom: 1rem;
+  border-radius: 0.65rem;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--cadasto-blue) 20%, transparent),
+    color-mix(in srgb, var(--cadasto-mint) 18%, transparent)
+  );
+  border: 1px solid var(--cadasto-border);
+}
+
+.md-typeset .feature-card .twemoji svg,
+.md-typeset .product-card .twemoji svg {
+  width: 1.4rem;
+  height: 1.4rem;
+  fill: var(--cadasto-heading);
+}
+
+.md-typeset .feature-card h3,
+.md-typeset .product-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.08rem;
+  color: var(--cadasto-fg);
+}
+
+.md-typeset .feature-card p {
+  color: var(--cadasto-fg-muted);
+  font-size: 0.87rem;
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* --- product cards ------------------------------------------------------- */
+
+.two-products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.25rem;
+  margin: 2.5rem auto 1rem;
+}
+
+.product-card {
+  background: linear-gradient(160deg, var(--cadasto-raised), var(--cadasto-surface));
+  border: 1px solid var(--cadasto-border);
+  border-left: 3px solid var(--cadasto-green);
+  border-radius: 0.9rem;
+  padding: 1.75rem;
+}
+
+.md-typeset .product-card p {
+  color: var(--cadasto-fg-muted);
+  line-height: 1.65;
+  font-size: 0.92rem;
+}
+
+.md-typeset .product-card .md-button {
+  border-radius: 2rem;
+  padding: 0.4rem 1.2rem;
+  font-size: 0.8rem;
+}
+
+/* --- quick start --------------------------------------------------------- */
+
+.quick-start {
+  max-width: 44rem !important;
+  margin: 2.5rem auto 4rem;
+  text-align: center;
+}
+
+.md-typeset .quick-start h2 {
+  font-family: var(--cadasto-display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset .quick-start > p {
+  color: var(--cadasto-fg-muted);
+}
+
+.quick-start .highlight {
+  text-align: left;
+}
+
+.md-typeset .quick-start pre > code {
+  border-radius: 0.75rem;
+  border: 1px solid var(--cadasto-border);
+  padding: 1.1rem 1.25rem;
+}
+
+/* --- footer -------------------------------------------------------------- */
+
+/* Navy in both schemes; the border is the only separation from a navy page in
+   dark mode, so it stays. */
+.home-footer {
+  border-top: 1px solid var(--cadasto-border);
+  background: var(--cadasto-navy);
+}
+
+.home-footer__inner {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+}
+
+.home-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.home-footer__copyright {
+  color: rgba(255, 255, 255, 0.72);
+  margin: 0;
+}
+
+.home-footer__links {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.home-footer__links a {
+  color: rgba(255, 255, 255, 0.72);
+  text-decoration: none;
+}
+
+.home-footer__links a:hover {
+  color: var(--cadasto-blue);
+}
+
+/* --- narrow viewports ---------------------------------------------------- */
+
+@media screen and (max-width: 48rem) {
+  .home-nav__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .home-nav__links {
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .home-hero {
+    padding-top: 3rem;
+  }
+
+  .md-typeset .section-title {
+    margin-top: 3rem;
+  }
+}
