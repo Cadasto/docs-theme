@@ -36,8 +36,20 @@ body {
    <body> beats one inherited from `:root`, so these overrides must use the same
    selector or they are silently discarded. */
 
+/* Ink pair: the brand hues at the strength each surface can carry, plus the
+   label colour that reads on top of them. Rules elsewhere use these names and
+   stop caring which scheme is active. Measured against the scheme background:
+   see tools/contrast.py, which fails if any of this drops below WCAG AA. */
+
 /* --- dark (default) ------------------------------------------------------- */
 [data-md-color-scheme="slate"] {
+  /* On navy the brand hues are already high contrast — 6.85:1 and 9.05:1 — so
+     dark mode uses them unmodified. Labels on top of them must be navy: white
+     on the brand blue is 2.27:1 and on the green 1.72:1. */
+  --cadasto-ink-blue: var(--cadasto-blue);
+  --cadasto-ink-green: var(--cadasto-green);
+  --cadasto-on-ink: var(--cadasto-navy);
+
   --cadasto-fg: var(--cadasto-white);
   --cadasto-fg-muted: rgba(255, 255, 255, 0.75);
   --cadasto-heading: var(--cadasto-blue);
@@ -52,20 +64,35 @@ body {
   --md-default-fg-color: var(--cadasto-fg);
   --md-default-fg-color--light: var(--cadasto-fg-muted);
   --md-default-fg-color--lighter: rgba(255, 255, 255, 0.45);
-  --md-primary-fg-color: var(--cadasto-blue);
+  --md-primary-fg-color: var(--cadasto-ink-blue);
   --md-primary-fg-color--light: var(--cadasto-blue);
   --md-primary-fg-color--dark: var(--cadasto-navy);
-  --md-accent-fg-color: var(--cadasto-green);
+  --md-accent-fg-color: var(--cadasto-ink-green);
+  /* Material paints button labels on the accent fill with this. Its own
+     default is white, which is 1.72:1 on the green. */
+  --md-accent-bg-color: var(--cadasto-on-ink);
   --md-typeset-color: var(--cadasto-fg);
-  --md-typeset-a-color: var(--cadasto-blue);
+  --md-typeset-a-color: var(--cadasto-ink-blue);
   --md-code-bg-color: rgba(0, 0, 0, 0.25);
   --md-footer-bg-color: var(--cadasto-navy);
 }
 
 /* --- light ---------------------------------------------------------------- */
 [data-md-color-scheme="default"] {
+  /* The brand blue and green are tuned for navy. On white they measure 2.27:1
+     and 1.72:1, far under the 4.5:1 WCAG AA floor for body text, and an
+     underline fixes only 1.4.1 (colour alone), never 1.4.3 (contrast). Mixing
+     each toward the navy keeps the brand hue and clears AA — 5.12:1 and
+     4.99:1 — so light mode gets its own ink rather than a seventh colour.
+     Labels on top of these must be white; navy is 3.03:1 and 3.11:1. */
+  --cadasto-ink-blue: color-mix(in srgb, var(--cadasto-blue) 55%, var(--cadasto-navy));
+  --cadasto-ink-green: color-mix(in srgb, var(--cadasto-green) 50%, var(--cadasto-navy));
+  --cadasto-on-ink: var(--cadasto-white);
+
   --cadasto-fg: var(--cadasto-navy);
-  --cadasto-fg-muted: rgba(10, 26, 102, 0.6);
+  /* 0.65, not 0.6: this carries body copy — the hero tagline and every card
+     paragraph — and 0.6 measured 4.41:1 on white. 0.65 is 5.20:1. */
+  --cadasto-fg-muted: rgba(10, 26, 102, 0.65);
   --cadasto-heading: var(--cadasto-navy);
   --cadasto-surface: rgba(10, 26, 102, 0.04);
   --cadasto-surface-hover: rgba(10, 26, 102, 0.07);
@@ -77,13 +104,16 @@ body {
   --md-default-bg-color: var(--cadasto-white);
   --md-default-fg-color: var(--cadasto-fg);
   --md-default-fg-color--light: var(--cadasto-fg-muted);
-  --md-default-fg-color--lighter: rgba(10, 26, 102, 0.38);
-  --md-primary-fg-color: var(--cadasto-blue);
+  /* 0.5, not 0.38: Material puts this on icons and small controls, which
+     1.4.11 holds to 3:1. At 0.38 it was 2.35:1; 0.5 is 3.29:1. */
+  --md-default-fg-color--lighter: rgba(10, 26, 102, 0.5);
+  --md-primary-fg-color: var(--cadasto-ink-blue);
   --md-primary-fg-color--light: var(--cadasto-blue);
   --md-primary-fg-color--dark: var(--cadasto-navy);
-  --md-accent-fg-color: var(--cadasto-green);
+  --md-accent-fg-color: var(--cadasto-ink-green);
+  --md-accent-bg-color: var(--cadasto-on-ink);
   --md-typeset-color: var(--cadasto-fg);
-  --md-typeset-a-color: var(--cadasto-blue);
+  --md-typeset-a-color: var(--cadasto-ink-blue);
   --md-code-bg-color: rgba(10, 26, 102, 0.05);
   --md-footer-bg-color: var(--cadasto-navy);
 }
