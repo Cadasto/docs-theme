@@ -12,6 +12,12 @@
   The product logo, site name, nav, repo URL and copyright come from the
   consuming site's mkdocs.yml. The Cadasto mark must live at
   `assets/cadasto-mark.png` under that site's `docs_dir`.
+
+  Replacing `header` also drops what Material keeps inside it, so the two
+  palette partials are included below. Without them this page renders the
+  first-listed scheme and offers no toggle, whatever the visitor picked
+  elsewhere on the site — the radio inputs and the localStorage restore both
+  live in `partials/header.html`, not in the bundle.
 -#}
 {% extends "main.html" %}
 
@@ -35,9 +41,22 @@
             GitHub
           </a>
         {% endif %}
+        {#- Guarded exactly as `partials/header.html` guards it: a `palette`
+            given as a single mapping has no toggle to render. -#}
+        {% if config.theme.palette %}
+          {% if not config.theme.palette is mapping %}
+            {% include "partials/palette.html" %}
+          {% endif %}
+        {% endif %}
       </nav>
     </div>
   </header>
+  {#- Applies the visitor's stored scheme to <body>. `__md_get` is defined in
+      `partials/javascripts/base.html`, which base.html loads in <head>, so
+      this runs with the helper already in scope. -#}
+  {% if not config.theme.palette is mapping %}
+    {% include "partials/javascripts/palette.html" %}
+  {% endif %}
 {% endblock %}
 
 {% block tabs %}{% endblock %}

@@ -58,7 +58,7 @@
 }
 
 .home-nav__links a:hover {
-  color: var(--cadasto-blue);
+  color: var(--cadasto-ink-blue);
 }
 
 .home-nav__repo {
@@ -73,13 +73,37 @@
 
 .home-nav__repo:hover {
   background: var(--cadasto-surface);
-  border-color: var(--cadasto-blue);
+  border-color: var(--cadasto-ink-blue);
 }
 
 .home-nav__repo svg {
   width: 1rem;
   height: 1rem;
   fill: currentcolor;
+}
+
+/* Scheme toggle. `home.html` includes Material's own palette partial, so the
+   markup and behaviour are the theme's; these rules only shrink the
+   header-sized control into the nav row and give it the same resting and hover
+   colour as the links beside it. Material fades its header buttons on hover
+   instead of recolouring them, hence the opacity reset. */
+.home-nav__links .md-header__option .md-header__button {
+  color: var(--cadasto-fg-muted);
+  margin: 0;
+  padding: 0;
+  opacity: 1;
+}
+
+.home-nav__links .md-header__option .md-header__button:hover {
+  color: var(--cadasto-ink-blue);
+  opacity: 1;
+}
+
+.home-nav__links .md-header__option .md-header__button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: currentcolor;
+  vertical-align: middle;
 }
 
 /* --- shared layout ------------------------------------------------------- */
@@ -161,18 +185,6 @@
   padding: 0.6rem 1.6rem;
   font-weight: 600;
   border-width: 1px;
-}
-
-.md-typeset .home-cta .md-button--primary {
-  color: var(--cadasto-navy);
-  background: var(--cadasto-blue);
-  border-color: var(--cadasto-blue);
-}
-
-.md-typeset .home-cta .md-button--primary:hover {
-  background: var(--cadasto-green);
-  border-color: var(--cadasto-green);
-  color: var(--cadasto-navy);
 }
 
 /* --- feature cards ------------------------------------------------------- */
@@ -338,6 +350,8 @@
   text-decoration: none;
 }
 
+/* The footer is navy in both schemes, so this keeps the unmixed brand blue
+   (6.85:1 on navy) rather than the ink used against the page surface. */
 .home-footer__links a:hover {
   color: var(--cadasto-blue);
 }
