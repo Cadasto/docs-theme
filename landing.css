@@ -118,12 +118,18 @@
   margin-right: auto;
 }
 
-.md-typeset .section-title {
+/* Do not use the `margin` shorthand here: it zeroes left/right and beats
+   `.home > * { margin-left/right: auto }`, so the 72rem heading parks on
+   the left of the viewport instead of over the card grid. */
+.md-typeset h2.section-title {
   font-family: var(--cadasto-display);
   font-weight: 700;
   text-align: center;
   font-size: 1.9rem;
-  margin: 4.5rem 0 0.5rem;
+  margin-top: 4.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* --- hero ---------------------------------------------------------------- */
