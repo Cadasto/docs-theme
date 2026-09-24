@@ -52,7 +52,18 @@ body {
 
   --cadasto-fg: var(--cadasto-white);
   --cadasto-fg-muted: rgba(255, 255, 255, 0.75);
-  --cadasto-heading: var(--cadasto-blue);
+  /* cadasto.com sets titles white on navy. */
+  --cadasto-heading: var(--cadasto-white);
+  /* Icon inks, cycled across the landing cards in this order, as on
+     cadasto.com: light blue, light green, silver. */
+  --cadasto-icon-1: var(--cadasto-blue);
+  --cadasto-icon-2: var(--cadasto-mint);
+  --cadasto-icon-3: var(--cadasto-silver);
+  /* Landing call-to-action buttons: white with a navy label, as on
+     cadasto.com. The hover keeps the green fill (`--cadasto-ink-green`). */
+  --cadasto-cta-bg: var(--cadasto-white);
+  --cadasto-cta-fg: var(--cadasto-navy);
+  --cadasto-cta-outline: var(--cadasto-white);
   --cadasto-surface: rgba(255, 255, 255, 0.05);
   --cadasto-surface-hover: rgba(255, 255, 255, 0.08);
   --cadasto-raised: rgba(255, 255, 255, 0.06);
@@ -94,6 +105,16 @@ body {
      paragraph — and 0.6 measured 4.41:1 on white. 0.65 is 5.20:1. */
   --cadasto-fg-muted: rgba(10, 26, 102, 0.65);
   --cadasto-heading: var(--cadasto-navy);
+  /* The dark-mode icon inks are pale: on white they fall under the 3:1 floor
+     for meaningful icons (1.4.11). Each keeps its hue, mixed toward the navy. */
+  --cadasto-icon-1: var(--cadasto-ink-blue);
+  --cadasto-icon-2: var(--cadasto-ink-green);
+  --cadasto-icon-3: color-mix(in srgb, var(--cadasto-silver) 35%, var(--cadasto-navy));
+  /* A white button disappears on a white page, so light mode keeps the blue
+     ink fill with a white label. */
+  --cadasto-cta-bg: var(--cadasto-ink-blue);
+  --cadasto-cta-fg: var(--cadasto-white);
+  --cadasto-cta-outline: var(--cadasto-ink-blue);
   --cadasto-surface: rgba(10, 26, 102, 0.04);
   --cadasto-surface-hover: rgba(10, 26, 102, 0.07);
   --cadasto-raised: var(--cadasto-white);

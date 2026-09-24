@@ -193,6 +193,63 @@
   border-width: 1px;
 }
 
+/* Landing buttons follow cadasto.com: white (see `--cadasto-cta-*` in
+   tokens.css), turning green on hover, with a small arrow that slides in on
+   hover and keyboard focus. The primary is filled, the rest are outlined. */
+.md-typeset .home-cta .md-button,
+.md-typeset .product-card .md-button {
+  color: var(--cadasto-cta-outline);
+  border-color: var(--cadasto-cta-outline);
+}
+
+.md-typeset .home-cta .md-button--primary {
+  background-color: var(--cadasto-cta-bg);
+  border-color: var(--cadasto-cta-bg);
+  color: var(--cadasto-cta-fg);
+}
+
+.md-typeset .home-cta .md-button:hover,
+.md-typeset .home-cta .md-button:focus-visible,
+.md-typeset .product-card .md-button:hover,
+.md-typeset .product-card .md-button:focus-visible {
+  background-color: var(--cadasto-ink-green);
+  border-color: var(--cadasto-ink-green);
+  color: var(--cadasto-on-ink);
+}
+
+/* The arrow is decoration: the alt-text form (`/ ""`) keeps screen readers
+   from announcing it, with the plain form as the fallback. */
+.md-typeset .home-cta .md-button::after,
+.md-typeset .product-card .md-button::after {
+  content: "\203A";
+  content: "\203A" / "";
+  display: inline-block;
+  max-width: 0;
+  margin-left: 0;
+  overflow: hidden;
+  opacity: 0;
+  font-size: 1.35em;
+  line-height: 1;
+  vertical-align: -0.08em;
+  transition: max-width 0.2s ease, margin-left 0.2s ease, opacity 0.2s ease;
+}
+
+.md-typeset .home-cta .md-button:hover::after,
+.md-typeset .home-cta .md-button:focus-visible::after,
+.md-typeset .product-card .md-button:hover::after,
+.md-typeset .product-card .md-button:focus-visible::after {
+  max-width: 1em;
+  margin-left: 0.4em;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset .home-cta .md-button::after,
+  .md-typeset .product-card .md-button::after {
+    transition: none;
+  }
+}
+
 /* --- feature cards ------------------------------------------------------- */
 
 .features-grid {
@@ -238,7 +295,18 @@
 .md-typeset .product-card .twemoji svg {
   width: 1.4rem;
   height: 1.4rem;
-  fill: var(--cadasto-heading);
+  fill: var(--cadasto-icon-1);
+}
+
+/* cadasto.com cycles its icons through three brand inks rather than one. */
+.md-typeset .feature-card:nth-child(3n + 2) .twemoji svg,
+.md-typeset .product-card:nth-child(3n + 2) .twemoji svg {
+  fill: var(--cadasto-icon-2);
+}
+
+.md-typeset .feature-card:nth-child(3n) .twemoji svg,
+.md-typeset .product-card:nth-child(3n) .twemoji svg {
+  fill: var(--cadasto-icon-3);
 }
 
 .md-typeset .feature-card h3,

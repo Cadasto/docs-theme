@@ -154,6 +154,12 @@ PAIRS = [
     ("--cadasto-ink-green", None, AA_NON_TEXT, "button hover fill vs the page"),
     ("--cadasto-on-ink", "--cadasto-ink-blue", AA_TEXT, "label on the blue fill"),
     ("--cadasto-on-ink", "--cadasto-ink-green", AA_TEXT, "label on the green fill"),
+    ("--cadasto-icon-1", None, AA_NON_TEXT, "first landing icon ink"),
+    ("--cadasto-icon-2", None, AA_NON_TEXT, "second landing icon ink"),
+    ("--cadasto-icon-3", None, AA_NON_TEXT, "third landing icon ink"),
+    ("--cadasto-cta-bg", None, AA_NON_TEXT, "call-to-action fill vs the page"),
+    ("--cadasto-cta-fg", "--cadasto-cta-bg", AA_TEXT, "label on the call-to-action fill"),
+    ("--cadasto-cta-outline", None, AA_TEXT, "outline call-to-action label and border"),
 ]
 
 # Both footers are navy in every scheme, so these rules in `material.css` and
